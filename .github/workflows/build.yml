@@ -6,7 +6,7 @@ name: build
 
 jobs:
   tests:
-    name: PHP ${{ matrix.php-version }} Test on ${{ matrix.os }}
+    name: PHP ${{ matrix.php-version }}-${{ matrix.os }}
     env:
       extensions: curl, mbstring, dom, intl
       key: cache-v1
@@ -46,7 +46,8 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
-          extensions: curl, mbstring, dom, intl
+          extensions: ${{ env.extensions }}
+          key: ${{ env.key }}
           ini-values: date.timezone='UTC'
           coverage: pcov         
 
