@@ -32,19 +32,7 @@ jobs:
         with:
           php-version: ${{ matrix.php-version }}
           extensions: curl, mbstring, dom, intl
-          ini-values: date.timezone='UTC'
-
-      - name: Create mysql db on Linux
-        if: matrix.os == 'ubuntu-latest'
-        run: |
-          sudo /etc/init.d/mysql start
-          mysql -uroot -proot -e 'CREATE DATABASE `yiitest`;'
-
-      - name: Create mysql db on Windows
-        if: matrix.os == 'windows-latest'
-        run: |
-          mysql start
-          mysql -uroot -proot -e 'CREATE DATABASE `yiitest`;'          
+          ini-values: date.timezone='UTC'         
 
       - name: Determine composer cache directory on Linux
         if: matrix.os == 'ubuntu-latest'
