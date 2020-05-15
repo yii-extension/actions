@@ -13,16 +13,6 @@ jobs:
 
     runs-on: ${{ matrix.os }}
 
-    services:
-      mysql:
-        image: mysql:5.7
-        env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: yiitest
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-
     strategy:
       matrix:
         os:
@@ -43,6 +33,11 @@ jobs:
           php-version: ${{ matrix.php-version }}
           extensions: curl, mbstring, dom, intl
           ini-values: date.timezone='UTC'
+
+      - name: Create mysql db
+        run: |
+          sudo /etc/init.d/mysql start
+          mysql -uroot -proot -e 'CREATE DATABASE `yiitest`;'
 
       - name: Determine composer cache directory on Linux
         if: matrix.os == 'ubuntu-latest'
