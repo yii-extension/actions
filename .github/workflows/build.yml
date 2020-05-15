@@ -4,10 +4,6 @@ on:
 
 name: build
 
-env:
-  extensions: "curl, mbstring, dom, intl"
-  key: "yii"
-
 jobs:
   tests:
     name: phpunit
