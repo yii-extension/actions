@@ -38,12 +38,12 @@ jobs:
       - name: Determine composer cache directory on Linux
         if: matrix.os == 'ubuntu-latest'
         id: composer-cache-ubuntu-latest
-        run: echo "::set-output name=COMPOSER_CACHE_DIR::$(composer config cache-dir)"
+        run: echo "::set-output name=::$(composer config cache-dir)"
 
       - name: Determine composer cache directory on Windows
         if: matrix.os == 'windows-latest'
         id: composer-cache-windows-latest
-        run: ECHO "::set-output name=COMPOSER_CACHE_DIR::~\AppData\Local\Composer"
+        run: ECHO "::set-output name=::~\AppData\Local\Composer"
 
       - name: Cache dependencies installed with composer
         uses: actions/cache@v1
