@@ -4,6 +4,9 @@ on:
 
 name: build
 
+env:
+  COMPOSER_ROOT_VERSION: "3.0-dev"
+
 jobs:
   tests:
     name: phpunit
