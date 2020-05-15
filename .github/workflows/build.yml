@@ -5,7 +5,7 @@ on:
 name: build
 
 env:
-  COMPOSER_ROOT_VERSION: "3.0-dev"
+  extensions: "curl, mbstring, dom, intl"
 
 jobs:
   tests:
