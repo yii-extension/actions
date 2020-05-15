@@ -31,7 +31,8 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
-          coverage: pcov
+          extensions: curl, mbstring, dom, intl
+          ini-values: date.timezone='UTC'
 
       - name: Determine composer cache directory on Linux
         if: matrix.os == 'ubuntu-latest'
