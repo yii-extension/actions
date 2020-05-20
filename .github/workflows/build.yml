@@ -89,6 +89,7 @@ jobs:
         run: vendor/bin/phpunit --coverage-clover=coverage.clover
 
       - name: Static analysis PHPStan
+        if: matrix.php-version == '7.4'
         run: phpstan analyse src --error-format=checkstyle | cs2pr
         
       - name: Code coverage
