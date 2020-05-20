@@ -8,7 +8,7 @@ jobs:
   tests:
     name: PHP ${{ matrix.php-version }}-${{ matrix.os }}
     env:
-      extensions: curl, mbstring, dom, intl
+      extensions: curl, mbstring, dom, intl, pdo, mysql, pdo_mysql
       key: cache-v1
 
     runs-on: ${{ matrix.os }}
@@ -17,11 +17,20 @@ jobs:
       matrix:
         os:
           - ubuntu-latest
-          - windows-latest
 
         php-version:
           - "7.4"
           - "8.0"
+
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: yiitest
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
       - name: Checkout
@@ -49,7 +58,8 @@ jobs:
           extensions: ${{ env.extensions }}
           key: ${{ env.key }}
           ini-values: date.timezone='UTC'
-          coverage: pcov         
+          coverage: pcov
+          tools: cs2pr, phpstan         
 
       - name: Determine composer cache directory on Linux
         if: matrix.os == 'ubuntu-latest'
@@ -78,6 +88,9 @@ jobs:
       - name: Run tests with phpunit
         run: vendor/bin/phpunit --coverage-clover=coverage.clover
 
+      - name: PHPStan
+        run: phpstan analyse src --error-format=checkstyle | cs2pr
+        
       - name: Code coverage
         if: matrix.os == 'ubuntu-latest'
         run: |

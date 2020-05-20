@@ -6,8 +6,19 @@ namespace Yii\Extension\Tests;
 
 final class ActionTest extends \PHPUnit\Framework\TestCase
 {
-    public function testAction(): void
+    public function test(): void
     {
-        $this->assertTrue(True);
+        $this->assertTrue(true);
+    }
+}
+
+class testInterface
+{
+}
+
+class A
+{
+    public function __construct(testInterface $test)
+    {
     }
 }
