@@ -90,6 +90,7 @@ jobs:
 
       - name: Static analysis PHPStan
         if: matrix.php-version == '7.4'
+        continue-on-error: true
         run: phpstan analyse src --error-format=checkstyle | cs2pr
         
       - name: Code coverage
