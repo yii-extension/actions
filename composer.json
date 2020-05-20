@@ -12,6 +12,11 @@
     "require-dev": {
         "phpunit/phpunit": "^9.0"
     },
+    "autoload": {
+        "psr-4": {
+            "Yiisoft\\Extension\\Action\\": "src"
+        }
+    },    
     "autoload-dev": {
         "psr-4": {
             "Yii\\Extension\\Actions\\Tests\\": "tests"
