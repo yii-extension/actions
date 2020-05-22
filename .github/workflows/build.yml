@@ -56,7 +56,6 @@ jobs:
         with:
           php-version: ${{ matrix.php-version }}
           extensions: ${{ env.extensions }}
-          key: ${{ env.key }}
           ini-values: date.timezone='UTC'
           coverage: pcov
           tools: cs2pr, phan         
@@ -91,9 +90,7 @@ jobs:
       - name: Static analysis Phan
         if: matrix.php-version == '7.4'
         continue-on-error: true
-        run: phan --progress-bar -o analysis.txt |
-          cat analysis.txt
-
+        run: phan --progress-bar -o --output-mode='checkstyle' | cs2pr
         
       - name: Code coverage
         if: matrix.os == 'ubuntu-latest'
