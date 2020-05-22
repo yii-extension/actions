@@ -8,7 +8,7 @@ jobs:
   tests:
     name: PHP ${{ matrix.php-version }}-${{ matrix.os }}
     env:
-      extensions: curl, mbstring, dom, intl, pdo, mysql, pdo_mysql
+      extensions: ast, curl, mbstring, dom, intl, pdo, mysql, pdo_mysql
       key: cache-v1
 
     runs-on: ${{ matrix.os }}
@@ -59,7 +59,7 @@ jobs:
           key: ${{ env.key }}
           ini-values: date.timezone='UTC'
           coverage: pcov
-          tools: cs2pr, phpstan         
+          tools: cs2pr, phan         
 
       - name: Determine composer cache directory on Linux
         if: matrix.os == 'ubuntu-latest'
@@ -91,7 +91,7 @@ jobs:
       - name: Static analysis PHPStan
         if: matrix.php-version == '7.4'
         continue-on-error: true
-        run: phpstan analyse src --error-format=checkstyle | cs2pr
+        run: phan analyse src --error-format=checkstyle | cs2pr
         
       - name: Code coverage
         if: matrix.os == 'ubuntu-latest'
