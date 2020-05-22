@@ -92,7 +92,7 @@ jobs:
         if: matrix.php-version == '7.4'
         continue-on-error: true
         run: phan --progress-bar -o analysis.txt |
-          cat analisys.txt
+          cat analysis.txt
 
         
       - name: Code coverage
