@@ -91,7 +91,9 @@ jobs:
       - name: Static analysis Phan
         if: matrix.php-version == '7.4'
         continue-on-error: true
-        run: phan | cs2pr
+        run: phan --progress-bar -o analysis.txt |
+          cat analisys.txt
+
         
       - name: Code coverage
         if: matrix.os == 'ubuntu-latest'
