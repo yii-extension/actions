@@ -7,9 +7,6 @@ name: static analysis with phan
 jobs:
   mutation:
     name: PHP ${{ matrix.php-version }}-${{ matrix.os }}
-    env:
-      extensions: xmlwriter
-      key: cache-v1
 
     runs-on: ${{ matrix.os }}
 
@@ -25,26 +22,10 @@ jobs:
       - name: "Checkout"
         uses: "actions/checkout@v2"
 
-      - name: Setup cache environment
-        id: cache-env
-        uses: shivammathur/cache-extensions@v1
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
         with:
-          php-version: ${{ matrix.php-version }}
-          extensions: ${{ env.extensions }}
-          key: ${{ env.key }}
-
-      - name: Cache extensions
-        uses: actions/cache@v1
-        with:
-          path: ${{ steps.cache-env.outputs.dir }}
-          key: ${{ steps.cache-env.outputs.key }}
-          restore-keys: ${{ steps.cache-env.outputs.key }}
-
-      - name: Install PHP with extensions
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php-version }}
-          extensions: ${{ env.extensions }}
+          php-version: "${{ matrix.php-version }}"
           tools: cs2pr, phan
           coverage: none
 
@@ -58,7 +39,6 @@ jobs:
           key: php${{ matrix.php-version }}-composer-${{ hashFiles('**/composer.json') }}
           restore-keys: |
             php${{ matrix.php-version }}-composer-
-
       - name: Install dependencies with composer
         run: composer update --prefer-dist --no-interaction --no-progress --optimize-autoloader
 
