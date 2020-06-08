@@ -11,14 +11,3 @@ final class ActionTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(true);
     }
 }
-
-class testInterface
-{
-}
-
-class A
-{
-    public function __construct(testInterface $test)
-    {
-    }
-}
