@@ -36,16 +36,15 @@ jobs:
         if: matrix.php-version == '7.4'
         run: composer create-project --prefer-dist --stability dev yii-extension/panel panel
 
-      - name: Access directory panel
-        if: matrix.php-version == '7.4'
-        run: cd panel
-
       - name: Install codeception c3 coverage on Linux php 7.4
         if: matrix.os == 'ubuntu-latest' && matrix.php-version == '7.4'
-        run: wget https://raw.github.com/Codeception/c3/2.0/c3.php
+        run: |
+          cd panel
+          wget https://raw.github.com/Codeception/c3/2.0/c3.php
 
       - name: Run tests with codeception with coverage on Linux php 7.4
         if: matrix.os == 'ubuntu-latest' && matrix.php-version == '7.4'
         run: |
+          cd panel
           php -S 127.0.0.1:8080 -t public > ./runtime/logs/yii.log 2>&1 &
           vendor/bin/codecept run --coverage --coverage-xml        
