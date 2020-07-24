@@ -37,6 +37,7 @@ jobs:
         run: composer create-project --prefer-dist --stability dev yii-extension/panel panel
 
       - name: Access directory panel
+        if: matrix.php-version == '7.4'
         run: cd panel
 
       - name: Install codeception c3 coverage on Linux php 7.4
