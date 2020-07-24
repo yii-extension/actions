@@ -30,7 +30,7 @@ jobs:
           extensions: ${{ env.extensions }}
           ini-values: date.timezone='UTC'
           coverage: pcov
-          tools: cs2pr, phan         
+          tools: composer:v2     
 
       - name: Create project with composer php 7.4
         if: matrix.php-version == '7.4'
