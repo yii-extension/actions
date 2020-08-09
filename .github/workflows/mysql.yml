@@ -1,0 +1,41 @@
+on:
+  - pull_request
+  - push
+
+name: mysql57
+
+jobs:
+  tests:
+    name: PHP ${{ matrix.php-version }}-mysql-${{ mysql-version }}
+    env:
+      extensions: curl, mbstring, dom, intl, pdo, mysql, pdo_mysql
+      key: cache-v1
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+
+        php-version:
+          - "7.4"
+          - "8.0"
+
+        mysql-version:
+          - "5.7"
+          - "latest"
+
+    services:
+      mysql:
+        image: mysql:${{ mysql-version }}
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: yiitest
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
