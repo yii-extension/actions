@@ -7,7 +7,12 @@ filter:
 
 build:
     nodes:
-        php74:
+        analysis:
+            tests:
+                override:
+                    - php-scrutinizer-run
+
+        tests-and-coverage:
             environment:
                 php: 7.4.12
         
@@ -24,8 +29,4 @@ build:
                             file: coverage.xml
                             format: php-clover      
                                           
-        analysis:
-            tests:
-                override:
-                    - 
-                        php-scrutinizer-run
+
