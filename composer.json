@@ -10,13 +10,13 @@
         "php": "^7.4"
     },
     "require-dev": {
-        "infection/infection": "^0.20.0",
         "phpunit/phpunit": "^9.4",
-        "vimeo/psalm": "^4.0"
+        "roave/infection-static-analysis-plugin": "^1.3",
+        "vimeo/psalm": "^4.1"
     },
     "autoload": {
         "psr-4": {
-            "Yiisoft\\Extension\\Action\\": "src"
+            "Yii\\Extension\\Action\\": "src"
         }
     },    
     "autoload-dev": {

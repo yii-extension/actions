@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace Yii\Extension\Action\Tests;
 
 use PHPUnit\Framework\TestCase;
+use Yii\Extension\Action\Stub;
 
-final class ActionTest extends TestCase
+final class StubTest extends TestCase
 {
-    public function test(): void
+    public function testConstruct(): void
     {
-        $this->assertTrue(true);
+        $stub = new Stub('testMe');
+
+        $this->assertEquals('testMe', $stub->getVar());
     }
 }
