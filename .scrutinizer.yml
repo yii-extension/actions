@@ -6,21 +6,30 @@ filter:
         - "src/*"
 
 build:
+    environment:
+        php: 7.4.12
+
     nodes:
+        oracle:
+            services:
+                oci:
+                    image: wnameless/oracle-xe-11g-r2:latest
+
+                    ports:
+                        - 1521
+
+                    ramdisks:
+                        - /var/lib/data   
+                         
         analysis:
-            environment:
-                php: 7.4.12
-                
             tests:
                 override:
                     - php-scrutinizer-run
 
-        tests-and-coverage:
-            environment:
-                php: 7.4.12
-        
+        tests-and-coverage:       
             dependencies:
                 override:
+                    - php -i
                     - composer update --prefer-dist --no-interaction --no-progress --optimize-autoloader --ansi
 
             tests:
