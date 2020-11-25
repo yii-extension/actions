@@ -7,7 +7,7 @@ filter:
 
 build:
     environment:
-        php: 7.4.12
+        php: 8.0.0
 
     nodes:
         oracle:
@@ -29,6 +29,7 @@ build:
         tests-and-coverage:       
             dependencies:
                 override:
+                    - php -i
                     - pecl install oci8-2.1.1
                     - composer update --prefer-dist --no-interaction --no-progress --optimize-autoloader --ansi
 
