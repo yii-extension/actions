@@ -9,16 +9,19 @@ build:
     environment:
         php: 7.4.13
 
-        pecl_extensions:
-            - sqlite3
-
     nodes:                        
         analysis:
             tests:
                 override:
                     - php-scrutinizer-run
 
-        tests-and-coverage:       
+        tests-and-coverage:
+            environment:       
+                php:
+        
+                pecl_extensions:
+                    - sqlite3
+
             dependencies:
                 override:
                     - composer --self-update
