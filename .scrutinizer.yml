@@ -7,20 +7,12 @@ filter:
 
 build:
     environment:
-        php: 8.0.0
+        php: 7.4.13
 
-    nodes:
-        oracle:
-            services:
-                oci:
-                    image: wnameless/oracle-xe-11g-r2:latest
+        pecl_extensions:
+            - sqlite3
 
-                    ports:
-                        - 1521
-
-                    ramdisks:
-                        - /var/lib/data   
-                         
+    nodes:                        
         analysis:
             tests:
                 override:
@@ -29,8 +21,7 @@ build:
         tests-and-coverage:       
             dependencies:
                 override:
-                    - php -i
-                    - pecl install oci8-2.1.1
+                    - composer --self-update
                     - composer update --prefer-dist --no-interaction --no-progress --optimize-autoloader --ansi
 
             tests:
