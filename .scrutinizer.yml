@@ -6,18 +6,28 @@ filter:
         - "src/*"
 
 build:
-    environment:
-        php: 7.4.13
+    nodes:    
+        services:
+            postgres: 13
 
-    nodes:                        
+        environment:
+            php:
+                version: 7.2.13
+                
         analysis:
             tests:
                 override:
                     - php-scrutinizer-run
 
         tests-and-coverage:
-            environment:       
+            environment:
                 php:
+                    version: 7.2.13
+                compile_options: '--enable-sigchild --without-pear'
+
+                # see https://pecl.php.net/
+                pecl_extensions:
+                    - PDO_PGSQL
         
                 pecl_extensions:
                     - sqlite3
@@ -34,6 +44,6 @@ build:
                         on_node: 1
                         coverage:
                             file: coverage.xml
-                            format: php-clover      
+                            format: php-clover   
                                           
 
