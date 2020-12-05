@@ -23,11 +23,7 @@ build:
             environment:
                 php:
                     version: 7.2.13
-                compile_options: '--enable-sigchild --without-pear'
-
-                # see https://pecl.php.net/
-                pecl_extensions:
-                    - PDO_PGSQL
+                compile_options: '--without-pear'
         
                 pecl_extensions:
                     - sqlite3
