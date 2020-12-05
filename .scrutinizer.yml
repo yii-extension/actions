@@ -22,7 +22,7 @@ build:
         tests-and-coverage:
             environment:
                 php:  7.4.13
-                compile_options: '--without-pear'
+                    compile_options: '--without-pear'
     
             dependencies:
                 override:
