@@ -7,11 +7,10 @@ filter:
 
 build:
     environment:
-        php:
-            version: 7.2.13
+        php: 7.4.13
             
     nodes:
-        my-node:    
+        pgsql:    
             services:
                 postgres: 13
                 
@@ -22,13 +21,9 @@ build:
 
         tests-and-coverage:
             environment:
-                php:
-                    version: 7.2.13
+                php:  7.4.13
                 compile_options: '--without-pear'
-        
-                pecl_extensions:
-                    - PDO_PGSQL
-
+    
             dependencies:
                 override:
                     - composer --self-update
