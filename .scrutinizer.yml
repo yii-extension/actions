@@ -25,8 +25,8 @@ build:
     
             dependencies:
                 override:
-                    - sudo /home/scrutinizer/.phpenv/versions/7.4.13/bin/pecl channel-update pecl.php.net
-                    - sudo /home/scrutinizer/.phpenv/versions/7.4.13/bin/pecl install pdo_pgsql
+                    - sudo apt-get install php7.4-pgsql
+                    - sudo phpenmod pdo_pgsql
                     - composer --self-update
                     - composer update --prefer-dist --no-interaction --no-progress --optimize-autoloader --ansi
 
