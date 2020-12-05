@@ -6,9 +6,10 @@ filter:
         - "src/*"
 
 build:
-    nodes:    
-        services:
-            postgres: 13
+    nodes:
+        my-node:    
+            services:
+                postgres: 13
 
         environment:
             php:
@@ -26,7 +27,7 @@ build:
                 compile_options: '--without-pear'
         
                 pecl_extensions:
-                    - sqlite3
+                    - PDO_PGSQL
 
             dependencies:
                 override:
