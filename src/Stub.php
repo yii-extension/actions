@@ -13,7 +13,7 @@ final class Stub
         $this->var = $var;
     }
 
-    public function getVar(): string
+    public function getVar(): int
     {
         return $this->var;
     }
