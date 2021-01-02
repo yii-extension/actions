@@ -21,11 +21,10 @@ build:
 
         tests-and-coverage:
             environment:
-                php:  7.4.13
+                php:  8.0
     
             dependencies:
                 override:
-                    - sudo /home/scrutinizer/.phpenv/versions/7.4.13/bin/php -i
                     - composer --self-update
                     - composer update --prefer-dist --no-interaction --no-progress --optimize-autoloader --ansi
 
