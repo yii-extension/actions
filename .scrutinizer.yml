@@ -18,9 +18,13 @@ build:
 
         tests-and-coverage:
             services:
-                my-service:
+                mysql-8:
                     image: mysql:latest
-                  
+
+                env:
+                    MYSQL_DATABASE: 'yiitest'
+                    MYSQL_ROOT_PASSWORD: 'root'
+
             dependencies:
                 override:
                     - composer self-update
