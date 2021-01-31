@@ -18,13 +18,12 @@ build:
                     - php-scrutinizer-run
 
         tests-and-coverage:
-            environment:
-                variables:
-                    MYSQL_ROOT_PASSWORD: 'root'            
-
             services:
                 mysql-8:
                     image: mysql:latest
+    
+                environment:
+                    - MYSQL_ROOT_PASSWORD=root
 
             dependencies:
                 override:
