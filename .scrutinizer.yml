@@ -23,7 +23,7 @@ build:
                     image: mysql:latest
     
                 env:
-                    - MYSQL_ROOT_PASSWORD=root
+                    MYSQL_ROOT_PASSWORD: root
 
             dependencies:
                 override:
