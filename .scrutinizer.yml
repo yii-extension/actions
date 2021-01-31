@@ -21,6 +21,8 @@ build:
             services:
                 mysql-8:
                     image: mysql:latest
+
+                env:
                     MYSQL_ROOT_PASSWORD: 'root'            
 
 
