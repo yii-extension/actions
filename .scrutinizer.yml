@@ -20,13 +20,7 @@ build:
             services:
                 my-service:
                     image: mysql:latest
-                env:
-                    MYSQL_DATABASE: 'yiitest'
-                    MYSQL_USER: 'root'
-                    MYSQL_PASSWORD: 'root'
-                    MYSQL_ROOT_PASSWORD: 'root'
-
-                    
+                  
             dependencies:
                 override:
                     - composer self-update
