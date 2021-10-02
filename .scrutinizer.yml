@@ -21,8 +21,8 @@ build:
     tests-and-coverage:
       services:
         mysql: latest
-        env:
-          "MYSQL_DATABASE": yiitest
+          env:
+            "MYSQL_DATABASE": yiitest
 
       dependencies:
         override:
