@@ -18,10 +18,6 @@ build:
                     - php-scrutinizer-run
 
         tests-and-coverage:
-            services:
-                sqlite:
-                    image: https://hub.docker.com/r/keinos/sqlite3 
-
             dependencies:
                 override:
                     - wget https://sqlite.org/2021/sqlite-autoconf-3340100.tar.gz
