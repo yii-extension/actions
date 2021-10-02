@@ -19,10 +19,19 @@ build:
 
         tests-and-coverage:
             services:
-                postgres: 13
+                sqlite:
+                    image: https://hub.docker.com/r/keinos/sqlite3 
 
             dependencies:
                 override:
+                    - wget https://sqlite.org/2021/sqlite-autoconf-3340100.tar.gz
+                    - tar -xvf sqlite-autoconf-3340100.tar.gz && cd sqlite-autoconf-3340100
+                    - ./configure
+                    - make
+                    - sudo make install
+                    - export PATH="/usr/local/lib:$PATH"
+                    - sqlite3 --version
+                    - cd ..
                     - composer self-update
                     - composer update --prefer-dist --no-interaction --no-progress --optimize-autoloader --ansi
 
