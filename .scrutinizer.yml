@@ -13,6 +13,10 @@ build:
         "xdebug.mode": coverage
 
   nodes:
+    yii3:
+      environment:
+        docker: true
+
     analysis:
       tests:
         override:
