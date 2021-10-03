@@ -6,13 +6,29 @@ filter:
     - "src/*"
 
 build:
+  environment:
+    php:
+      version: 8.0.11
+      ini:
+        "xdebug.mode": coverage
+
   nodes:
-    my-node:
-      services:
-        my-service:
-          image: mysql:latest
-          
-          env:
-            MYSQL_ALLOW_EMPTY_PASSWORD: true
-            MYSQL_PASSWORD: ''
-            MYSQL_DATABASE: yiitest
+    analysis:
+      tests:
+        override:
+          - php-scrutinizer-run
+
+    phpunit:
+      tests:
+        before:
+          - 'mysql -u root -e "CREATE DATABASE yiitest"'
+          - composer self-update
+          - composer update --prefer-dist --no-interaction --no-progress --optimize-autoloader --ansi
+          - docker run --name mysql -e MYSQL_ALLOW_EMPTY_PASSWORD=true MYSQL_ROOT_PASSWORD='' MYSQL_DATABASE='yiitest' -d mysql:tag
+
+        override:
+          - command: "./vendor/bin/phpunit --coverage-clover ./coverage.xml"
+            on_node: 1
+            coverage:
+              file: coverage.xml
+              format: php-clover
