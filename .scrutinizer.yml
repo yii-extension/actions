@@ -7,7 +7,6 @@ filter:
 
 build:
   nodes:
-    my-node:
-      services:
-        my-service:
-          image: docker.io/library/mysql:latest
+    node-that-needs-docker:
+      environment:
+        docker: true
