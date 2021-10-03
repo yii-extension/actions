@@ -6,36 +6,8 @@ filter:
     - "src/*"
 
 build:
-  environment:
-    php:
-      version: 8.0.11
-      ini:
-        "xdebug.mode": coverage
-
   nodes:
-    yii3:
-      environment:
-        docker: true
-
-    analysis:
-      tests:
-        override:
-          - php-scrutinizer-run
-
-    phpunit:
-      dependencies:
-        override:
-          - composer self-update
-          - composer update --prefer-dist --no-interaction --no-progress --optimize-autoloader --ansi
-          - docker run --name mysql -e MYSQL_ALLOW_EMPTY_PASSWORD=true MYSQL_ROOT_PASSWORD='' MYSQL_DATABASE='yiitest' -d mysql:tag
-
-      tests:
-        before:
-          - 'mysql -u root -e "CREATE DATABASE yiitest"'
-
-        override:
-          - command: "./vendor/bin/phpunit --coverage-clover ./coverage.xml"
-            on_node: 1
-            coverage:
-              file: coverage.xml
-              format: php-clover
+    my-node:
+      services:
+        my-service:
+          image: docker.io/library/mysql:latest
