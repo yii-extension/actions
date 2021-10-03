@@ -19,12 +19,15 @@ build:
           - php-scrutinizer-run
 
     phpunit:
-      tests:
-        before:
-          - 'mysql -u root -e "CREATE DATABASE yiitest"'
+      dependencies:
+        override:
           - composer self-update
           - composer update --prefer-dist --no-interaction --no-progress --optimize-autoloader --ansi
           - docker run --name mysql -e MYSQL_ALLOW_EMPTY_PASSWORD=true MYSQL_ROOT_PASSWORD='' MYSQL_DATABASE='yiitest' -d mysql:tag
+
+      tests:
+        before:
+          - 'mysql -u root -e "CREATE DATABASE yiitest"'
 
         override:
           - command: "./vendor/bin/phpunit --coverage-clover ./coverage.xml"
