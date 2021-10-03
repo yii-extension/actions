@@ -6,7 +6,5 @@ filter:
     - "src/*"
 
 build:
-  nodes:
-    node-that-needs-docker:
-      environment:
-        docker: true
+  environment:
+    docker: true
