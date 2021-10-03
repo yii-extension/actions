@@ -18,20 +18,21 @@ build:
         override:
           - php-scrutinizer-run
 
-    tests-and-coverage:
+    my-node:
       services:
-        mysql: latest
-          env:
-            "MYSQL_DATABASE": "yiitest"
+        my-mysql:
+          image: mysql:latest
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
+          MYSQL_PASSWORD: ''
+          MYSQL_DATABASE: yiitest  
 
-      dependencies:
-        override:
-          - composer self-update
-          - composer update --prefer-dist --no-interaction --no-progress --optimize-autoloader --ansi
-
+    phpunit:
       tests:
         before:
           - 'mysql -u root -e "CREATE DATABASE yiitest"'
+          - composer self-update
+          - composer update --prefer-dist --no-interaction --no-progress --optimize-autoloader --ansi 
 
         override:
           - command: "./vendor/bin/phpunit --coverage-clover ./coverage.xml"
