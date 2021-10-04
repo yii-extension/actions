@@ -1,27 +1,42 @@
+checks:
+  php: true
+
+filter:
+  paths:
+    - "src/*"
+
 build:
   environment:
-    docker: 
-      remote_engine: true
-  project_setup:
-    before:
-      # Install SAM CLI
-      - pip install aws-sam-cli
-      - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-      - unzip awscliv2.zip
-      - sudo ./aws/install
+    php:
+      version: 8.0.11
+      ini:
+        "xdebug.mode": coverage
 
-      # Configure AWS defaults
-      - aws configure set aws_access_key_id scrutinizer_fake_key
-      - aws configure set aws_secret_access_key scrutinizer_fake_secret
-      - aws configure set default.region eu-west-1
+  nodes:
+    analysis:
+      tests:
+        override:
+          - php-scrutinizer-run
 
-      # Copy data to remote docker volume 
-      - docker run -v /home/scrutinizer/build:/remote-host -d --name cp-container busybox
-      - docker cp /home/scrutinizer/build/code cp-container:/remote-host/code
+    my-node:
+      services:
+        my-mysql:
+          image: mysql:latest
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
+          MYSQL_PASSWORD: ''
+          MYSQL_DATABASE: yiitest  
 
-      # Start API and Lambda
-      - command: sam local start-lambda -t cloudformation.yaml
-        background: true  
-  tests:
-    override:
-      - sam local invoke -t cloudformation.yaml "ProcessStream" --no-event
+    phpunit:
+      tests:
+        before:
+          - 'mysql -u root -e "CREATE DATABASE yiitest"'
+          - composer self-update
+          - composer update --prefer-dist --no-interaction --no-progress --optimize-autoloader --ansi 
+
+        override:
+          - command: "./vendor/bin/phpunit --coverage-clover ./coverage.xml"
+            on_node: 1
+            coverage:
+              file: coverage.xml
+              format: php-clover
