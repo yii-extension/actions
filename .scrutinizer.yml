@@ -31,7 +31,8 @@ build:
 
       tests:
         before:
-          - 'mysql -u root -e "CREATE DATABASE yiitest"'
+          - 'mysql -h 127.0.0.1 -P 3306 -u root'
+          - 'mysql -h 127.0.0.1 -u root -e "CREATE DATABASE yiitest"'
 
         override:
           - command: "./vendor/bin/phpunit --coverage-clover ./coverage.xml"
