@@ -22,10 +22,10 @@ build:
       services:
         my-mysql:
           image: mysql:latest
-        env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: true
-          MYSQL_PASSWORD: ''
-          MYSQL_DATABASE: yiitest  
+          env:
+            MYSQL_ALLOW_EMPTY_PASSWORD: true
+            MYSQL_PASSWORD: ''
+            MYSQL_DATABASE: yiitest  
 
     phpunit:
       tests:
