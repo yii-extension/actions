@@ -14,7 +14,8 @@ build:
         docker:
           remote_engine: true
           cache:
-            images: mcr.microsoft.com/mssql/server:2019-latest
+            images:
+              - 'mcr.microsoft.com/mssql/server:2019-latest'
           
       tests:
         before:
