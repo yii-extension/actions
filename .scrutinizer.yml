@@ -7,18 +7,31 @@ filter:
 
 build:
   image: default-bionic
-
+  
   nodes:
     phpunit:
-      environment:
-        docker:
-          remote_engine: true
-          cache:
-            images:
-              - 'mcr.microsoft.com/mssql/server:2019-latest'
-          
+      services:
+        db-mssql:
+          image: mcr.microsoft.com/mssql/server:2019-latest
+
+          # Define any additional environment variables that are needed by the service.
+          env:
+            SA_PASSWORD: YourStrong!Passw0rd
+            ACCEPT_EULA: Y
+            MSSQL_PID: Developer
+
+          # We automatically forward these ports from your localhost to the service's port.
+          # Alternatively, you can also access the service on the "$SERVICE_SOME_NAME_IP"
+          # environment variable.
+          ports:
+            # Forward 127.0.0.1:12345 -> SERVICE_IP:12345
+            - 1433
+
+          # If your service writes data to disk like most databases do, you can significantly
+          # speed up tests by mounting a ramdisk at those paths.
+          ramdisks:
+            - /var/lib/data
+         
       tests:
         before:
-          - docker run --name=mssql --health-cmd="/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'YourStrong!Passw0rd' -Q 'select 1'" --health-interval=10s --health-timeout=5s --health-retries=3 -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=YourStrong!Passw0rd" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-latest
-          - docker ps -a
-          - docker exec -i mssql /opt/mssql-tools/bin/sqlcmd -S 127.0.0.1 -U SA -P 'YourStrong!Passw0rd' -Q 'CREATE DATABASE yiitest'         
+          - sqlcmd -S 127.0.0.1 -U SA -P 'YourStrong!Passw0rd' -Q 'CREATE DATABASE yiitest'         
