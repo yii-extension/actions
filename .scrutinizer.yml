@@ -12,7 +12,7 @@ build:
     phpunit:
       services:
         db-mssql:
-          image: mcr.microsoft.com/mssql/server:2019-latest
+          image: mcr.microsoft.com/mssql/server:2017-latest
 
           # Define any additional environment variables that are needed by the service.
           env:
@@ -34,9 +34,8 @@ build:
          
       tests:
         before:
-          - lsb_release -a
           - curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -          
-          - curl -sSL https://packages.microsoft.com/config/ubuntu/18.04/mssql-server-2019.list | sudo tee /etc/apt/sources.list.d/mssql-server-2019.list >/dev/null 2>&1
-          - sudo apt-get -q update >/dev/null 2>&1
+          - curl -sSL https://packages.microsoft.com/config/ubuntu/18.04/mssql-server-2017.list | sudo tee /etc/apt/sources.list.d/mssql-server-2017.list
+          - sudo apt-get -q update
           - sudo ls /opt/mssql-tools/bin/sqlcmd*
           - sqlcmd -S 127.0.0.1 -U SA -P 'YourStrong!Passw0rd' -Q 'CREATE DATABASE yiitest'         
