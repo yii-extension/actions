@@ -30,4 +30,5 @@ build:
 
       tests:
         before:
+          - docker ps -a
           - docker exec -i db_mssql /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'YourStrong!Passw0rd' -Q 'CREATE DATABASE yiitest'            
