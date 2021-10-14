@@ -11,9 +11,10 @@ build:
   nodes:
     phpunit:
       environment:
-        docker: true
-        cache:
-          images: mcr.microsoft.com/mssql/server:2019-latest
+        docker:
+          remote_engine: true
+          cache:
+            images: mcr.microsoft.com/mssql/server:2019-latest
           
       tests:
         before:
