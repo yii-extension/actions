@@ -34,6 +34,9 @@ build:
          
       tests:
         before:
-          - sudo apt-get install mssql-tools
+          - lsb_release -a
+          - curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -          
+          - curl -sSL https://packages.microsoft.com/config/ubuntu/18.04/mssql-server-2019.list | sudo tee /etc/apt/sources.list.d/mssql-server-2019.list >/dev/null 2>&1
+          - sudo apt-get -q update >/dev/null 2>&1
           - sudo ls /opt/mssql-tools/bin/sqlcmd*
           - sqlcmd -S 127.0.0.1 -U SA -P 'YourStrong!Passw0rd' -Q 'CREATE DATABASE yiitest'         
