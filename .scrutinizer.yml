@@ -25,3 +25,7 @@ build:
           ports:
             # Forward 127.0.0.1:12345 -> SERVICE_IP:12345
             - 1433
+
+      tests:
+        before:
+          - docker exec -i db_mssql /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'YourStrong!Passw0rd' -Q 'CREATE DATABASE yiitest'            
