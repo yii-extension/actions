@@ -10,6 +10,8 @@ build:
 
   nodes:
     phpunit:
+      environment:
+        docker: true
       services:
         db-mssql:
           image: mcr.microsoft.com/mssql/server:2019-latest
