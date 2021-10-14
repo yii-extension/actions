@@ -34,4 +34,6 @@ build:
          
       tests:
         before:
+          - sudo apt-get install mssql-tools
+          - sudo ls /opt/mssql-tools/bin/sqlcmd*
           - sqlcmd -S 127.0.0.1 -U SA -P 'YourStrong!Passw0rd' -Q 'CREATE DATABASE yiitest'         
