@@ -94,3 +94,4 @@ jobs:
 
       - name: Run tests with phpunit
         run: vendor/bin/phpunit --colors=always
+
