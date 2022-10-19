@@ -41,7 +41,17 @@ jobs:
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
-      - name: Set env COMPOSER_ROOT_VERSION.
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
+      - name: Set env COMPOSER_ROOT_VERSION event `pull_request`
+        if: github.event_name == 'pull_request'
+        run: echo "COMPOSER_ROOT_VERSION=dev-${GITHUB_HEAD_REF}" >> $GITHUB_ENV
+
+      - name: Set env COMPOSER_ROOT_VERSION `event push`
+        if: github.event_name == 'push'
         run: echo "COMPOSER_ROOT_VERSION=dev-${GITHUB_REF_NAME}" >> $GITHUB_ENV
 
       - name: Checkout
