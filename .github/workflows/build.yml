@@ -54,9 +54,6 @@ jobs:
         if: github.event_name == 'push'
         run: echo "COMPOSER_ROOT_VERSION=dev-${GITHUB_REF_NAME}" >> $GITHUB_ENV
 
-      - name: Checkout
-        uses: actions/checkout@v2
-
       - name: Setup cache environment
         id: cache-env
         uses: shivammathur/cache-extensions@v1
