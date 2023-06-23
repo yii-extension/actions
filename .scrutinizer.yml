@@ -26,6 +26,7 @@ build:
         override:
           - pecl channel-update pecl.php.net
           - pecl install grpc-1.56.0
+          - php -info
           - composer self-update
           - composer update --prefer-dist --no-interaction --no-progress --optimize-autoloader --ansi
           - vendor/bin/rr get-binary
